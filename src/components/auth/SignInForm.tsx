@@ -1,17 +1,46 @@
-import React, { useState } from 'react';
+import { GoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
+import { useState } from 'react';
 
-const SignInForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser, clearUser } from '../../redux/userSlice';
+
+function SignInForm() {
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  // const user = useSelector((state) => state.user.user);
+
+  const handleSuccess = async (response: { credential: any; }) => {
+    const { credential } = response;
+    console.log("Google JWT:", credential);
+
+    // Send token to FastAPI for verification
+    const result = await axios.post('http://localhost:8000/api/v1/auth/google', {
+      token: credential
+    });
+    if (!result.data || result.data.message !== "User authenticated") {
+      setError('Failed to sign in with Google');
+      return;
+    }
+    dispatch(setUser(result.data));
+    const result2 = await axios.post('http://localhost:8000/api/v1/user/login', {
+        email: result.data.email,
+        name: result.data.name,
+        id: result.data.user_id
+    });
+    console.log("Backend Response:", result.data);
+    navigate('/profile');
+  };
   const [error, setError] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-        console.log("sign in");
-    } catch (err) {
-      setError('Failed to sign in');
-    }
+  const handleFailure = () => {
+    console.error("Google Sign-In Failed");
+  };
+  const handleSkipping = () => {
+    navigate('/');
+    console.log("User skipped the sign-in process");
   };
 
   return (
@@ -31,35 +60,6 @@ const SignInForm = () => {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email address"
-              className="w-full px-4 py-3 rounded-lg bg-white"
-              required
-            />
-          </div>
-          <div>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-              className="w-full px-4 py-3 rounded-lg bg-white"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full bg-black text-white rounded-full py-3 font-medium"
-          >
-            Sign In
-          </button>
-        </form>
-
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-gray-300"></div>
@@ -69,15 +69,19 @@ const SignInForm = () => {
           </div>
         </div>
 
-        <button className="w-full flex items-center justify-center gap-2 bg-white text-gray-700 rounded-full py-3 font-medium border border-gray-300" >
-          <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5" />
-          Sign in with Google
-        </button>
+        <GoogleLogin 
+          onSuccess={handleSuccess} 
+          onError={handleFailure} 
+      />
 
-        <button className="text-gray-500 w-full text-center">Skip</button>
+        <button 
+          className="text-gray-500 w-full text-center" 
+          onClick={handleSkipping}
+        >Skip</button>
       </div>
     </div>
+
   );
-};
+}
 
 export default SignInForm;
