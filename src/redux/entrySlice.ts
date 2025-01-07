@@ -2,16 +2,29 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { backend } from '../constants';
-export async function createEntryFromText1(text: string, userId: string) {
+export async function createEntryFromText(text: string, userId: string) {
   const result = await axios.post(`${backend}/api/v1/llm/newEntry`, {
     text: text
   });
-  const data : Entry = result.data
+  const data = result.data
+  const output: Entry = {
+    id: `${Date.now()}`,
+    user_id: userId,
+    title: data.title_with_emoji,
+    content: data.summary,
+    images: [],
+    mood: data.emoji,
+    date: new Date().toISOString().split('T')[0],
+    activities: data.activities,
+    feelings: []
+    // feelings: [data.mood_analysis]
+  }
+
   // serialise the result into entry object
-  return data;
+  return output;
 }
 
-export async function createEntryFromText(text: string, userId: string) {
+export async function createEntryFromText1(text: string, userId: string) {
   await axios.get(`${backend}`);
   const entry: Entry = {
     id: `${Date.now()}`,

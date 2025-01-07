@@ -45,64 +45,13 @@ export default function RecordingScreen({ onClose, onConfirm }: RecordingScreenP
 
   if (analyzing) {
     return (
-      <div className="fixed inset-0 bg-white flex flex-col items-center justify-center">
-        <div className="text-sm text-gray-500 mb-2">
-          {new Date().toLocaleString('en-US', {
-            month: 'long',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-            hour12: true
-          })}
-        </div>
-        <h1 className="text-3xl font-bold mb-8">Analyzing emotions..</h1>
-        <div className="w-16 h-16 bg-purple-100 rounded-full animate-pulse" />
-        <button 
-          onClick={onClose}
-          className="mt-auto mb-8 text-gray-500"
-        >
-          Cancel
-        </button>
-      </div>
+      LoadingScreen(onClose)
     );
   }
 
   if (showConfirm) {
     return (
-      <div className="fixed inset-0 bg-white flex flex-col items-center">
-        <div className="text-center p-4 mb-8 items-center justify-center">
-          <h2 className="text-xl text-gray-500">
-            Confirm to analyze entry or record more
-          </h2>
-        </div>
-        
-        <div className="flex-1 flex items-center justify-center">
-          <h1 className="text-4xl font-bold">How are you today?</h1>
-        </div>
-
-        <div className="w-full px-8 pb-8">
-          <div className="text-center mb-4">{formatTime(duration)}</div>
-          <div className="flex justify-between items-center gap-4">
-            <button 
-              onClick={onClose}
-              className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center"
-            >
-              <X size={24} />
-            </button>
-            <button 
-              className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center"
-            >
-              <Mic size={32} />
-            </button>
-            <button 
-              onClick={handleConfirm}
-              className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center"
-            >
-              <Check size={24} />
-            </button>
-          </div>
-        </div>
-      </div>
+      ConfirmRecordingScreen(formatTime, duration, onClose, handleConfirm)
     );
   }
 
@@ -129,4 +78,63 @@ export default function RecordingScreen({ onClose, onConfirm }: RecordingScreenP
       </div>
     </div>
   );
+}
+
+function LoadingScreen(onClose: () => void) {
+  return <div className="fixed inset-0 bg-white flex flex-col items-center justify-center">
+    <div className="text-sm text-gray-500 mb-2">
+      {new Date().toLocaleString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true
+      })}
+    </div>
+    <h1 className="text-3xl font-bold mb-8">Analyzing emotions..</h1>
+    <div className="w-16 h-16 bg-purple-100 rounded-full animate-pulse" />
+    <button
+      onClick={onClose}
+      className="mt-auto mb-8 text-gray-500"
+    >
+      Cancel
+    </button>
+  </div>;
+}
+
+function ConfirmRecordingScreen(formatTime: (seconds: number) => string, duration: number, onClose: () => void, handleConfirm: () => void) {
+  return <div className="fixed inset-0 bg-white flex flex-col items-center">
+    <div className="text-center p-4 mb-8 items-center justify-center">
+      <h2 className="text-xl text-gray-500">
+        Confirm to analyze entry or record more
+      </h2>
+    </div>
+
+    <div className="flex-1 flex items-center justify-center">
+      <h1 className="text-4xl font-bold">How are you today?</h1>
+    </div>
+
+    <div className="w-full px-8 pb-8">
+      <div className="text-center mb-4">{formatTime(duration)}</div>
+      <div className="flex justify-between items-center gap-4">
+        <button
+          onClick={onClose}
+          className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center"
+        >
+          <X size={24} />
+        </button>
+        <button
+          className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center"
+        >
+          <Mic size={32} />
+        </button>
+        <button
+          onClick={handleConfirm}
+          className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center"
+        >
+          <Check size={24} />
+        </button>
+      </div>
+    </div>
+  </div>;
 }
