@@ -1,9 +1,9 @@
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-
+import { backend } from '../constants';
 export async function createEntryFromText1(text: string, userId: string) {
-  const result = await axios.post('http://localhost:8000/api/v1/llm/newEntry', {
+  const result = await axios.post(`${backend}/api/v1/llm/newEntry`, {
     text: text
   });
   const data : Entry = result.data
@@ -12,7 +12,7 @@ export async function createEntryFromText1(text: string, userId: string) {
 }
 
 export async function createEntryFromText(text: string, userId: string) {
-  await axios.get('http://localhost:8000');
+  await axios.get(`${backend}`);
   const entry: Entry = {
     id: `${Date.now()}`,
     user_id: userId,

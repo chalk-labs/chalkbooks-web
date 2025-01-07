@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Entry, createEntryFromText } from "../../redux/entrySlice";
 import LoadingScreen from "./LoadingScreen";
 import axios from "axios";
-
+import { backend } from "../../constants";
 interface TypingScreenProps {
   onClose: () => void;
 }
@@ -37,7 +37,7 @@ export default function TypingScreen({ onClose }: TypingScreenProps) {
       if (text.trim()) {
         const entry: Entry = await createEntryFromText(text, user.user.user_id); // Create an entry object
         dispatch(addEntry(entry)); // Dispatch the entry to Redux store
-        const result = await axios.post('http://localhost:8000/api/v1/entry/new', entry);
+        const result = await axios.post(`${backend}/api/v1/entry/new`, entry);
         console.log(result);
         
         setIsLoading(false);

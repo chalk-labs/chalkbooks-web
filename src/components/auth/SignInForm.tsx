@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser, clearUser } from '../../redux/userSlice';
 import { addEntry } from '../../redux/entrySlice';
+import { backend } from '../../constants';
 
 function SignInForm() {
 
@@ -18,7 +19,7 @@ function SignInForm() {
     console.log("Google JWT:", credential);
 
     // Send token to FastAPI for verification
-    const result = await axios.post('http://localhost:8000/api/v1/auth/google', {
+    const result = await axios.post(`${backend}/api/v1/auth/google`, {
       token: credential
     });
     if (!result.data || result.data.message !== "User authenticated") {
@@ -26,12 +27,12 @@ function SignInForm() {
       return;
     }
     dispatch(setUser(result.data));
-    const result2 = await axios.post('http://localhost:8000/api/v1/user/login', {
+    const result2 = await axios.post(`${backend}/api/v1/user/login`, {
         email: result.data.email,
         name: result.data.name,
         id: result.data.user_id
     });
-    const entries = await axios.get(`http://localhost:8000/api/v1/entry/user/${result.data.user_id}`);
+    const entries = await axios.get(`${backend}/api/v1/entry/user/${result.data.user_id}`);
     for (const entry of entries.data) {
       console.log(entry);
       dispatch(addEntry(entry));
