@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser, clearUser } from '../../redux/userSlice';
+import { addEntry } from '../../redux/entrySlice';
 
 function SignInForm() {
 
@@ -30,6 +31,12 @@ function SignInForm() {
         name: result.data.name,
         id: result.data.user_id
     });
+    const entries = await axios.get(`http://localhost:8000/api/v1/entry/user/${result.data.user_id}`);
+    for (const entry of entries.data) {
+      console.log(entry);
+      dispatch(addEntry(entry));
+    }
+
     console.log("Backend Response:", result.data);
     navigate('/profile');
   };

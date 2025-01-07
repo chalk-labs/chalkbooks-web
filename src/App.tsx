@@ -13,7 +13,8 @@ function App() {
     <Router>
       <div className="min-h-screen bg-gray-50">
         <Routes>
-          <Route path="/" element={<JournalScreen />} />
+          <Route path="/" element={<EntryScreen />} />
+          <Route path="/journal" element={<JournalScreen />} />
           <Route path="/entry" element={<EntryScreen />} />
           <Route path="/record" element={<VoiceRecorder recordingTime={0} />} />
           {/* <Route path="/record2" element={<RecordingScreen/>} /> */}

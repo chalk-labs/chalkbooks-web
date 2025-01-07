@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 import { Mic, Keyboard, RefreshCw } from 'lucide-react';
 import RecordingScreen from './recording/RecordingScreen';
+import TypingScreen from './recording/TypingScreen';
 
 const EntryInput = () => {
   const [isRecording, setIsRecording] = useState(false);
-
-  const handleRecordingComplete = (audioBlob: Blob) => {
-    // Handle the recorded audio
-    console.log('Recording complete', audioBlob);
-    setIsRecording(false);
-  };
+  const [isTyping, setIsTyping] = useState(false);
 
   return (
     <>
@@ -28,7 +24,10 @@ const EntryInput = () => {
           >
             <Mic size={32} className="text-rose-600" />
           </button>
-          <button className="p-2 text-gray-600 hover:text-rose-500">
+          <button 
+            onClick={() => setIsTyping(true)}
+            className="p-2 text-gray-600 hover:text-rose-500"
+          >
             <Keyboard size={24} />
             <span className="block text-xs mt-1">Type</span>
           </button>
@@ -38,7 +37,13 @@ const EntryInput = () => {
       {isRecording && (
         <RecordingScreen
           onClose={() => setIsRecording(false)}
-          onConfirm={handleRecordingComplete}
+          onConfirm={() => setIsRecording(false)}
+        />
+      )}
+
+      {isTyping && (
+        <TypingScreen
+          onClose={() => setIsTyping(false)}
         />
       )}
     </>
