@@ -7,6 +7,11 @@ export async function createEntryFromText(text: string, userId: string) {
     text: text
   });
   const data = result.data
+  // if data.activies is a string then convert it into a singleton list
+  if (typeof data.activities ==='string') {
+    data.activities = [data.activities];
+  }
+
   const output: Entry = {
     id: `${Date.now()}`,
     user_id: userId,
@@ -16,9 +21,13 @@ export async function createEntryFromText(text: string, userId: string) {
     mood: data.emoji,
     date: new Date().toISOString().split('T')[0],
     activities: data.activities,
-    feelings: []
+    feelings: [{
+      emoji: data.emoji,
+      text: data.mood_analysis
+    }]
     // feelings: [data.mood_analysis]
   }
+   
 
   // serialise the result into entry object
   return output;
