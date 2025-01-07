@@ -1,42 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import JournalHeader from '../components/JournalHeader';
 import WeeklySummary from '../components/WeeklySummary';
 import JournalEntry from '../components/JournalEntry';
+import { useSelector } from 'react-redux';
 
 const JournalScreen = () => {
-  const entries = [
-    {
-      title: 'Productive Morning 🏃‍♂️💻',
-      content: 'A fresh day, I went for a jog.\n\nWatched some inspirational videos.\n\nPlanned some things for my next build.',
-      image: 'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&q=80&w=200',
-      mood: '😊',
-      date: 'Today',
-      activities: ['jogging', 'watching videos', 'planning build'],
-      feelings: [
-        { emoji: '😊', text: 'motivated' },
-        { emoji: '✨', text: 'inspired' }
-      ]
-    },
-    {
-      title: "What I'm grateful for today",
-      content: 'I got a very motivated business partner',
-      mood: '❤️',
-      date: 'Yesterday',
-      feelings: [
-        { emoji: '❤️', text: 'grateful' }
-      ]
-    },
-    {
-      title: 'Under the Weather 🤧😕',
-      content: 'Caught cold',
-      mood: '😷',
-      date: 'Yesterday',
-      feelings: [
-        { emoji: '🤒', text: 'sick' }
-      ]
-    }
-  ];
+  const entries = useSelector((state) => state.entry.entries);
+  // console.log(entries);
+  // const user = useSelector((state) => state.user);
 
+  useEffect(() => {
+    
+  }, [entries]);
+
+  const date = new Date();
+  const today = date.toISOString().split('T')[0];
+  date.setDate(date.getDate() - 1);
+  const yesterday = date.toISOString().split('T')[0];
   return (
     <div className="pb-20">
       <JournalHeader />
@@ -51,17 +31,26 @@ const JournalScreen = () => {
 
         <div className="space-y-2 mb-6">
           <h2 className="text-gray-500 text-lg">Today</h2>
-          {entries.filter(entry => entry.date === 'Today').map((entry, index) => (
+          {entries.filter((entry)=> entry.date === today).map((entry, index) => (
             <JournalEntry key={index} {...entry} />
           ))}
         </div>
 
         <div className="space-y-2">
           <h2 className="text-gray-500 text-lg">Yesterday</h2>
-          {entries.filter(entry => entry.date === 'Yesterday').map((entry, index) => (
+          {entries.filter((entry )=> entry.date === yesterday).map((entry, index) => (
             <JournalEntry key={index} {...entry} />
           ))}
         </div>
+
+        <div className="space-y-2">
+          <h2 className="text-gray-500 text-lg">Past</h2>
+          {entries.filter((entry )=> {return entry.date !== today && entry.date !== yesterday}).map((entry, index) => (
+            <JournalEntry key={index} {...entry} />
+          ))}
+        </div>
+
+  
       </div>
     </div>
   );

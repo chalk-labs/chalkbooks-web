@@ -10,7 +10,7 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    // This effect will run every time the user value changes
+    
   }, [user]);
 
   if (!user.isAuthenticated) {

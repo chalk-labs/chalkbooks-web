@@ -1,0 +1,118 @@
+
+  const entries1 = [
+    {
+      title: 'Productive Morning 🏃‍♂️💻',
+      content: 'A fresh day, I went for a jog.\n\nWatched some inspirational videos.\n\nPlanned some things for my next build.',
+      image: 'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&q=80&w=200',
+      mood: '😊',
+      date: 'Today',
+      activities: ['jogging', 'watching videos', 'planning build'],
+      feelings: [
+        { emoji: '😊', text: 'motivated' },
+        { emoji: '✨', text: 'inspired' }
+      ]
+    },
+    {
+      title: "What I'm grateful for today",
+      content: 'I got a very motivated business partner',
+      mood: '❤️',
+      date: 'Yesterday',
+      feelings: [
+        { emoji: '❤️', text: 'grateful' }
+      ]
+    },
+    {
+      title: 'Under the Weather 🤧😕',
+      content: 'Caught cold',
+      mood: '😷',
+      date: 'Yesterday',
+      feelings: [
+        { emoji: '🤒', text: 'sick' }
+      ]
+    }
+  ];
+
+
+
+  init entries1
+
+  {
+    id: "abc",
+    user_id: "112259286812638363771",
+    title: 'Productive Morning 🏃‍♂️💻',
+    content: 'A fresh day, I went for a jog.\n\nWatched some inspirational videos.\n\nPlanned some things for my next build.',
+    images: ['https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&q=80&w=200'],
+    mood: '😊',
+    date: 'Today',
+    activities: ['jogging', 'watching videos', 'planning build'],
+    feelings: [
+      { emoji: '😊', text: 'motivated' },
+      { emoji: '✨', text: 'inspired' }
+    ]
+  },
+  {
+    id: "asdf",
+    user_id: "asdf",
+    activities: ['asdf', 'asd'],
+    title: "What I'm grateful for today",
+    content: 'I got a very motivated business partner',
+    mood: '❤️',
+    date: 'Yesterday',
+    feelings: [
+      { emoji: '❤️', text: 'grateful' }
+    ]
+  },
+  {
+    id: "qwer",
+    user_id: "qwer",
+    activities: ['qwer', 'qwerty'],
+    title: 'Under the Weather 🤧😕',
+    content: 'Caught cold',
+    mood: '😷',
+    date: 'Yesterday',
+    feelings: [
+      { emoji: '🤒', text: 'sick' }
+    ]
+  }
+
+
+  entry
+
+  {
+    id: "abc",
+    user_id: "112259286812638363771",
+    title: 'Productive Morning 🏃‍♂️💻',
+    content: 'A fresh day, I went for a jog.\n\nWatched some inspirational videos.\n\nPlanned some things for my next build.',
+    images: ['https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&q=80&w=200'],
+    mood: '😊',
+    date: 'Today',
+    activities: ['jogging', 'watching videos', 'planning build'],
+    feelings: [
+      { emoji: '😊', text: 'motivated' },
+      { emoji: '✨', text: 'inspired' }
+    ]
+  },
+  {
+    id: "asdf",
+    user_id: "asdf",
+    activities: ['asdf', 'asd'],
+    title: "What I'm grateful for today",
+    content: 'I got a very motivated business partner',
+    mood: '❤️',
+    date: 'Yesterday',
+    feelings: [
+      { emoji: '❤️', text: 'grateful' }
+    ]
+  },
+  {
+    id: "qwer",
+    user_id: "qwer",
+    activities: ['qwer', 'qwerty'],
+    title: 'Under the Weather 🤧😕',
+    content: 'Caught cold',
+    mood: '😷',
+    date: 'Yesterday',
+    feelings: [
+      { emoji: '🤒', text: 'sick' }
+    ]
+  }

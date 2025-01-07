@@ -9,7 +9,7 @@ const BottomNav = () => {
   const isActive = (path: string) => location.pathname === path;
 
   const navItems = [
-    { icon: BookOpen, label: 'Journal', path: '/' },
+    { icon: BookOpen, label: 'Journal', path: '/journal' },
     { icon: PenSquare, label: 'Entry', path: '/entry' },
     { icon: User, label: 'Profile', path: '/profile' }
   ];
