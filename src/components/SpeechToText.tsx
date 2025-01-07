@@ -1,9 +1,11 @@
 // src/components/SpeechToText.tsx
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 const SpeechToText: React.FC = () => {
   const [transcript, setTranscript] = useState<string>("");
   const [isRecording, setIsRecording] = useState<boolean>(false);
+
+  const recognitionRef = useRef<SpeechRecognition | null>(null); // useRef to store reference to recognition instance
 
   // Ensure we use `SpeechRecognition` or `webkitSpeechRecognition`
   const recognitionInstance =
@@ -16,7 +18,15 @@ const SpeechToText: React.FC = () => {
     }
 
     const recognition = new recognitionInstance();
-    recognition.interimResults = true; // Show interim results
+
+    // Store the recognition instance in useRef
+    recognitionRef.current = recognition;
+
+    recognition.continuous = true; // Allow continuous recognition even with pauses
+    recognition.interimResults = true; // Show interim results while speaking
+    recognition.maxAlternatives = 1; // Set max alternatives to 1 (optional)
+    recognition.lang = "en-US"; // Optional: Set the language (English here)
+
     recognition.onresult = (event: SpeechRecognitionEvent) => {
       const latestTranscript = event.results[0][0].transcript;
       setTranscript(latestTranscript); // Update state with recognized speech
@@ -26,13 +36,20 @@ const SpeechToText: React.FC = () => {
       console.error("Error during speech recognition:", event);
     };
 
+    // Prevent the recognition from stopping automatically after pauses
+    recognition.onend = () => {
+      if (isRecording) {
+        recognition.start(); // Restart recognition if still recording
+      }
+    };
+
     recognition.start(); // Start the speech recognition process
     setIsRecording(true); // Set recording state to true
   };
 
   const stopRecognition = () => {
-    if (recognitionInstance) {
-      recognitionInstance.stop();
+    if (recognitionRef.current) {
+      recognitionRef.current.stop(); // Stop the recognition manually
     }
     setIsRecording(false); // Set recording state to false when stopped
   };
@@ -62,6 +79,7 @@ const SpeechToText: React.FC = () => {
     </div>
   );
 };
+
 
 // Inline styling for better layout
 // Updated style definition for the card component
