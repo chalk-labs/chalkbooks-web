@@ -40,7 +40,7 @@ const EntryEditModal = ({ isOpen, onClose, onSave, entry }: EntryEditModalProps)
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+    <div className="fixed inset-0 bg-white bg-opacity-100 z-50 flex items-center justify-center">
       <div className="bg-mint-50 w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl">
         {/* Header */}
         <div className="flex justify-between items-center p-4">

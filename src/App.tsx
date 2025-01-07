@@ -4,6 +4,8 @@ import BottomNav from './components/BottomNav';
 import JournalScreen from './screens/JournalScreen';
 import EntryScreen from './screens/EntryScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import ProtectedRoute from './components/auth/ProtectedRoute';
+import SignInForm from './components/auth/SignInForms3';
 
 function App() {
   return (
@@ -13,6 +15,7 @@ function App() {
           <Route path="/" element={<JournalScreen />} />
           <Route path="/entry" element={<EntryScreen />} />
           <Route path="/profile" element={<ProfileScreen />} />
+          <Route path="/signin" element={<SignInForm />} />
         </Routes>
         <BottomNav />
       </div>
