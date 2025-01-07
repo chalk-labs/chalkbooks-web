@@ -21,7 +21,7 @@ function App() {
           {/* <Route path="/record2" element={<RecordingScreen/>} /> */}
           <Route path="/profile" element={<ProfileScreen />} />
           <Route path="/signin" element={<SignInForm />} />
-          <Route path="/speech-to-text" element={<SpeechToText />} />
+          <Route path="/sst" element={<SpeechToText />} />
         </Routes>
         <BottomNav />
       </div>
