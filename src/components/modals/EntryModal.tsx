@@ -43,8 +43,8 @@ const EntryModal = ({ isOpen, onClose, entry, onUpdate }: EntryModalProps) => {
             <X size={24} />
           </button>
           <div className="text-center">
-            <div className="font-semibold">Today</div>
-            <div className="text-gray-500 text-sm">{entry.time || '11:24 AM'}</div>
+            <div className="font-semibold">{entry.date}</div>
+            {/* <div className="text-gray-500 text-sm">{entry.time || '11:24 AM'}</div> */}
           </div>
           <button 
             onClick={() => setIsEditMode(true)}
@@ -65,11 +65,16 @@ const EntryModal = ({ isOpen, onClose, entry, onUpdate }: EntryModalProps) => {
           <h1 className="text-3xl font-bold text-center">{entry.title}</h1>
 
           {/* Activities */}
-          <div className="flex flex-wrap gap-2">
-            {entry.activities.map((activity, index) => (
-              <ActivityTag key={index} text={activity} />
-            ))}
-          </div>
+          <div>
+              <h2 className="text-gray-500 mb-3">ACTIVITES</h2>
+            <div className="flex flex-wrap gap-2">
+
+              {entry.activities.map((activity, index) => (
+                <ActivityTag key={index} text={activity} />
+              ))}
+            </div>
+            </div>
+          
 
           {/* Feelings */}
           <div>
