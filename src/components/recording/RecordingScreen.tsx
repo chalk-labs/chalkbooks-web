@@ -212,13 +212,13 @@ function ConfirmRecordingScreen(formatTime: (seconds: number) => string, duratio
       </h2>
     </div>
 
-    <div className=" flex items-center justify-center" style={{marginTop: "20%", marginBottom: "20%"}}>
+    <div className=" flex items-center justify-center" style={{marginTop: "50px", marginBottom: "50px"}}>
       <h1 className="text-4xl font-bold">Confirm Recording?</h1>
     </div>
 
     <div className="w-full px-8 pb-8">
       <div className="text-center mb-4">{formatTime(duration)}</div>
-      <div className="flex justify-between items-center gap-4">
+      <div className="flex justify-center items-center gap-20">
         <button
           onClick={onClose}
           className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center"
