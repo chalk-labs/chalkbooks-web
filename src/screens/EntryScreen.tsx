@@ -16,7 +16,7 @@ const EntryScreen = () => {
       <div className="flex justify-between items-center p-4">
         <div className="flex items-center gap-2">
           <span className="text-2xl">📔</span>
-          <h1 className="text-xl font-semibold">Journal</h1>
+          <h1 className="text-xl font-semibold">Chalk Books</h1>
         </div>
         <div className="flex items-center gap-2">
           <span className="text-2xl">🔥</span>
